@@ -1,18 +1,21 @@
 package main
 
 import (
-	"bufio"
+	"encoding/json"
+	"github.com/martadrozsa/uc-sistemas-distribuidos-a3-comunicacao-entre-processos/dto"
 	"log"
 	"net"
 )
 
-const SERVER_ADDRESS = "localhost:8080"
+const ServerAddress = "localhost:8080"
+
+var productsMap = map[int]float64{10: 55.00, 20: 25.00, 30: 35.00, 40: 45.00}
 
 func main() {
-	listener, err := net.Listen("tcp", SERVER_ADDRESS)
+	listener, err := net.Listen("tcp", ServerAddress)
 	checkError(err)
 
-	log.Println("Server listening on", SERVER_ADDRESS)
+	log.Println("Server listening on", ServerAddress)
 
 	for {
 		serverConnection, err := listener.Accept()
@@ -21,20 +24,29 @@ func main() {
 		log.Println("Server received a new connection")
 
 		//goroutine
-		go handlerConnection(serverConnection)
-
+		go handleConnection(serverConnection)
 	}
-
 }
 
-func handlerConnection(connection net.Conn) {
-	response, err := bufio.NewReader(connection).ReadString('\n')
+func handleConnection(connection net.Conn) {
+
+	decoder := json.NewDecoder(connection)
+	encoder := json.NewEncoder(connection)
+
+	var req dto.Request
+	err := decoder.Decode(&req)
 	checkError(err)
 
+	sumProducts := 0.0
+	for _, id := range req.Ids {
+		sumProducts += productsMap[id]
+	}
 	//Processamento
-	log.Println("Word received:", response)
+	log.Println("Ids received:", req)
 
-	_, err = connection.Write([]byte(response))
+	response := dto.Response{TotalPrice: sumProducts}
+	err = encoder.Encode(response)
+
 	checkError(err)
 
 	_ = connection.Close()

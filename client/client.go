@@ -1,7 +1,9 @@
 package main
 
 import (
-	"io"
+	"encoding/json"
+	_ "encoding/json"
+	"github.com/martadrozsa/uc-sistemas-distribuidos-a3-comunicacao-entre-processos/dto"
 	"log"
 	"net"
 )
@@ -13,13 +15,18 @@ func main() {
 	clientConnection, err := net.Dial("tcp", ADDRESS)
 	checkError(err)
 
-	_, err = clientConnection.Write([]byte("teste\n"))
+	requestOne := dto.Request{Ids: []int{10, 20, 30, 40}}
+
+	encoder := json.NewEncoder(clientConnection)
+	err = encoder.Encode(requestOne)
+
+	decoder := json.NewDecoder(clientConnection)
+
+	var res dto.Response
+	err = decoder.Decode(&res)
 	checkError(err)
 
-	response, err := io.ReadAll(clientConnection)
-	checkError(err)
-
-	log.Println(string(response))
+	log.Println("Total: R$", res)
 
 	_ = clientConnection.Close()
 
