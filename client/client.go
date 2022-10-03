@@ -8,11 +8,11 @@ import (
 	"net"
 )
 
-const ADDRESS = "localhost:8080"
+const Address = "localhost:8080"
 
 func main() {
 
-	clientConnection, err := net.Dial("tcp", ADDRESS)
+	clientConnection, err := net.Dial("tcp", Address)
 	checkError(err)
 
 	requestOne := dto.Request{Ids: []int{10, 20, 30, 40, 50, 60, 70}}

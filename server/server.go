@@ -41,7 +41,7 @@ func handleConnection(connection net.Conn) {
 	for _, id := range req.Ids {
 		sumProducts += productsMap[id]
 	}
-	//Processamento
+
 	log.Println("Ids received:", req)
 
 	response := dto.Response{TotalPrice: sumProducts}
