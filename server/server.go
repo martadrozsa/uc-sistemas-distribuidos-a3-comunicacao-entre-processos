@@ -9,7 +9,7 @@ import (
 
 const ServerAddress = "localhost:8080"
 
-var productsMap = map[int]float64{10: 55.00, 20: 25.00, 30: 35.00, 40: 45.00}
+var productsMap = map[int]float64{10: 55.00, 20: 25.00, 30: 35.00, 40: 45.00, 50: 37.50, 60: 47.60, 70: 64.00}
 
 func main() {
 	listener, err := net.Listen("tcp", ServerAddress)

@@ -15,7 +15,7 @@ func main() {
 	clientConnection, err := net.Dial("tcp", ADDRESS)
 	checkError(err)
 
-	requestOne := dto.Request{Ids: []int{10, 20, 30, 40}}
+	requestOne := dto.Request{Ids: []int{10, 20, 30, 40, 50, 60, 70}}
 
 	encoder := json.NewEncoder(clientConnection)
 	err = encoder.Encode(requestOne)
@@ -26,7 +26,7 @@ func main() {
 	err = decoder.Decode(&res)
 	checkError(err)
 
-	log.Println("Total: R$", res)
+	log.Printf("Total R$%.2f", res.TotalPrice)
 
 	_ = clientConnection.Close()
 
