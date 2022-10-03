@@ -7,4 +7,12 @@ O cliente envia uma quantidade de ids, o server recebe e processa enviando a som
 
 ![sockets drawio (1)](https://user-images.githubusercontent.com/83780126/193697437-e7f1233e-9358-4441-96fa-09482d636d72.png)
 
-Integrantes:
+**Integrantes**:
+
+[Eduardo dos Santos Araújo](https://github.com/eduardoaraujo1)
+
+[Fábio Sérgio Santos Filho](https://github.com/fabiossf)
+
+[Jean Menta Barreto](https://github.com/jeanmenta)
+
+[Marta Denisczwicz Rozsa](https://github.com/martadrozsa)
